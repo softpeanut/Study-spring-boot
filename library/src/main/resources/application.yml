@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: false
+    show-sql: true
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: ${DATABASE_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD}
+
+server:
+  shutdown: graceful
