@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor @NoArgsConstructor
-public class B {
+public class Book {
     private String title;
     private Library libraryId;
 }

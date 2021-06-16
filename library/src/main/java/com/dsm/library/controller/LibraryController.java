@@ -1,8 +1,8 @@
 package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationLibraryRequest;
-import com.dsm.library.controller.response.A;
-import com.dsm.library.controller.response.AResponse;
+import com.dsm.library.controller.response.Library;
+import com.dsm.library.controller.response.LibraryResponse;
 import com.dsm.library.service.LibraryCreationService;
 import com.dsm.library.service.LibrarySearchService;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class LibraryController {
     }
     @GetMapping("/library")
     @ResponseStatus(HttpStatus.OK)
-    public AResponse searchLibrary() {
-        List<A> libraries = searchService.test()
+    public LibraryResponse searchLibrary() {
+        List<Library> libraries = searchService.test()
                 .stream()
-                .map(library -> new A(library.getName(), library.getFoundingYear()))
+                .map(library -> new Library(library.getName(), library.getFoundingYear()))
                 .collect(Collectors.toList());
 
-        return new AResponse(libraries);
+        return new LibraryResponse(libraries);
     }
 }

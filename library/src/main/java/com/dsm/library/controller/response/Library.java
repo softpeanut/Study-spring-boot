@@ -3,10 +3,11 @@ package com.dsm.library.controller.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
-public class AResponse {
-    private List<A> libraries;
+public class Library {
+    private String name;
+    private LocalDate foundingYear;
 }

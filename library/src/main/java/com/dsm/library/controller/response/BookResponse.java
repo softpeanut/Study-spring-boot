@@ -7,6 +7,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class BResponse {
-    private List<B> book;
+public class BookResponse {
+    private List<Book> book;
 }

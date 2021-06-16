@@ -1,8 +1,8 @@
 package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationBookRequest;
-import com.dsm.library.controller.response.B;
-import com.dsm.library.controller.response.BResponse;
+import com.dsm.library.controller.response.Book;
+import com.dsm.library.controller.response.BookResponse;
 import com.dsm.library.service.BookRegistrationService;
 import com.dsm.library.service.BookSearchService;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +27,13 @@ public class BookController {
     }
 
     @GetMapping("/book")
-    public BResponse searchBook() {
-        List<B> books = bookSearchService.test()
+    public BookResponse searchBook() {
+        List<Book> books = bookSearchService.test()
                 .stream()
-                .map(book -> new B(book.getTitle(), book.getLibrary()))
+                .map(book -> new Book(book.getTitle(), book.getLibrary()))
                 .collect(Collectors.toList());
 
-        return new BResponse(books);
+        return new BookResponse(books);
     }
 
 }
