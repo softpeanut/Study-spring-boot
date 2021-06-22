@@ -24,6 +24,7 @@ public class LibraryController {
     public void registerLibrary(@RequestBody RegistrationLibraryRequest request) {
         creationService.createLibrary(request.getName());
     }
+
     @GetMapping("/library")
     @ResponseStatus(HttpStatus.OK)
     public LibraryResponse searchLibrary() {
