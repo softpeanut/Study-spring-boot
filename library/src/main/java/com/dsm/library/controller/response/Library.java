@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 public class Library {
+    private Long id;
     private String name;
     private LocalDate foundingYear;
 }

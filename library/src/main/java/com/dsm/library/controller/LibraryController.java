@@ -30,7 +30,7 @@ public class LibraryController {
     public LibraryResponse searchLibrary() {
         List<Library> libraries = searchService.test()
                 .stream()
-                .map(library -> new Library(library.getName(), library.getFoundingYear()))
+                .map(library -> new Library(library.getId(), library.getName(), library.getFoundingYear()))
                 .collect(Collectors.toList());
 
         return new LibraryResponse(libraries);
