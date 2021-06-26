@@ -20,15 +20,14 @@ public class BookController {
 
 
     @PostMapping("/book")
-        public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
-            bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
-        }
+    public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
+        bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
+    }
 
-        @GetMapping("/book")
-        public BookResponse searchBooks() {
-            List<Book> books = bookSearchService.searchBooks()
-                .stream()
-                .map(book -> new Book(book.getTitle(), book.getLibrary()))
+    @GetMapping("/book")
+    public BookResponse searchBooks() {
+        List<Book> books = bookSearchService.searchBooks().stream()
+                .map(book -> new Book(book.getBookId(), book.getTitle(), book.getLibrary()))
                 .collect(Collectors.toList());
 
         return new BookResponse(books);
@@ -38,7 +37,7 @@ public class BookController {
     public List<Book> searchBook(@PathVariable Long id) {
         return bookSearchService.searchBook(id)
                 .stream()
-                .map(book -> new Book(book.getTitle(), book.getLibrary()))
+                .map(book -> new Book(book.getBookId(), book.getTitle(), book.getLibrary()))
                 .collect(Collectors.toList());
     }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 public class Book {
+    private Long bookId;
     private String title;
     private Library libraryId;
 }
