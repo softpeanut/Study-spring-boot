@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistrationBookRequest {
     private String title;
     private long libraryId;

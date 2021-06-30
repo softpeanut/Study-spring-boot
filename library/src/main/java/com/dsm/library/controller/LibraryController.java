@@ -1,7 +1,6 @@
 package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationLibraryRequest;
-import com.dsm.library.controller.response.Library;
 import com.dsm.library.controller.response.LibraryResponse;
 import com.dsm.library.service.LibraryCreationService;
 import com.dsm.library.service.LibrarySearchService;
@@ -21,16 +20,16 @@ public class LibraryController {
 
     @PostMapping("/library")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerLibrary(@RequestBody RegistrationLibraryRequest request) {
+    public void registerLibrary(@RequestBody RegistrationLibraryRequest request) throws Exception {
         creationService.createLibrary(request.getName());
     }
 
     @GetMapping("/library")
     @ResponseStatus(HttpStatus.OK)
     public LibraryResponse searchLibrary() {
-        List<Library> libraries = searchService.test()
+        List<LibraryResponse.Library> libraries = searchService.test()
                 .stream()
-                .map(library -> new Library(library.getId(), library.getName(), library.getFoundingYear()))
+                .map(library -> new LibraryResponse.Library(library.getId(), library.getName(), library.getFoundingYear()))
                 .collect(Collectors.toList());
 
         return new LibraryResponse(libraries);

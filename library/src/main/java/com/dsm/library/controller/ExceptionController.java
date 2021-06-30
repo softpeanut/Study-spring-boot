@@ -11,7 +11,7 @@ public class ExceptionController {
     @ExceptionHandler(value = Exception.class)
     public Map<String, String> handleException(Exception e) {
         Map<String, String> map = new HashMap<>();
-        map.put("Error Message!", e.getMessage());
+        map.put("Error!", e.getMessage());
         return map;
     }
 }

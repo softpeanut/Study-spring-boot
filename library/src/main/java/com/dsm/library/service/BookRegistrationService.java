@@ -15,10 +15,10 @@ public class BookRegistrationService {
     private final LibraryRepository libraryRepository;
 
     public void createBook(String title, long libraryId) throws Exception {
-        Library library = libraryRepository.findById(libraryId)
-                .orElseThrow(Exception::new);
-        Book book = new Book(null, title, library);
+            Library library = libraryRepository.findById(libraryId)
+                    .orElseThrow(Exception::new);
+            Book book = new Book(null, title, library);
 
-        bookRepository.save(book);
+            bookRepository.save(book);
     }
 }
