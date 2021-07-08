@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class BookController {
 
     private final BookRegistrationService bookRegistrationService;
@@ -31,10 +32,10 @@ public class BookController {
         );
     }
 
-    @GetMapping("/book/{id}")
-    public BookResponse searchBook(@PathVariable Long id) {
+    @GetMapping("/books/{libraryId}")
+    public BookResponse searchBook(@PathVariable Long libraryId) {
         return new BookResponse(
-                bookSearchService.searchBook(id)
+                bookSearchService.searchBook(libraryId)
                     .stream()
                     .map(book -> new BookResponse.BookInformation(book.getBookId(), book.getTitle(), book.getLibrary().getName()))
                     .collect(Collectors.toList())

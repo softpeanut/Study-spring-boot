@@ -2,7 +2,7 @@ package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationLibraryRequest;
 import com.dsm.library.controller.response.LibraryResponse;
-import com.dsm.library.exception.LibraryNotFoundException;
+import com.dsm.library.domain.library.Library;
 import com.dsm.library.service.LibraryCreationService;
 import com.dsm.library.service.LibrarySearchService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class LibraryController {
 
     private final LibraryCreationService creationService;
@@ -28,8 +29,13 @@ public class LibraryController {
         return new LibraryResponse(searchService.test());
     }
 
-    @PostMapping("/test")
-    public void test() {
-        throw new LibraryNotFoundException(1);
+    @GetMapping("/libraries/{libraryId}")
+    public LibraryResponse.Library searchLibrary(@PathVariable("libraryId") long libraryId) {
+        Library library = searchService.getLibrary(libraryId);
+
+        return new LibraryResponse.Library(
+                library.getId(),
+                library.getName(),
+                library.getFoundingYear());
     }
 }
