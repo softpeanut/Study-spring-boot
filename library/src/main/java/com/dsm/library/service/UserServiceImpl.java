@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public String register(UserRequest request) {
         try {
-            userRepository.save(
-                    User.builder()
+                userRepository.save(
+                        User.builder()
                             .id(request.getId())
                             .password(request.getPassword())
                             .build()
