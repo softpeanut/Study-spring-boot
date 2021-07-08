@@ -1,7 +1,7 @@
 package com.dsm.library.controller;
 
 import com.dsm.library.exception.BusinessException;
-import com.dsm.library.exception.CommonExceptionResponse;
+import com.dsm.library.exception.response.CommonExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
