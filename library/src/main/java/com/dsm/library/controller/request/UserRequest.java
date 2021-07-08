@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
-public class RegistrationLibraryRequest {
-    private String name;
+@NoArgsConstructor
+public class UserRequest {
+    private String id;
+    private String password;
 }

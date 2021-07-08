@@ -1,4 +1,4 @@
-package com.dsm.library.domain;
+package com.dsm.library.domain.library;
 
 import lombok.*;
 
@@ -16,12 +16,11 @@ public class Library {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id")
     private Long id;
 
-    //@Column(name = "name")
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "founding_year")
+    @Column(name = "founding_year", nullable = false)
     private LocalDate foundingYear;
 }

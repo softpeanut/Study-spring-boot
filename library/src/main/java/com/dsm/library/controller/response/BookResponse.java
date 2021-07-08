@@ -18,7 +18,7 @@ public class BookResponse {
     public static class BookInformation {
         private Long bookId;
         private String title;
-        private String libraryName;
+        private String library;
     }
 }
 

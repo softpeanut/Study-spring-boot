@@ -1,7 +1,6 @@
-package com.dsm.library.repository;
+package com.dsm.library.domain.book;
 
-import com.dsm.library.domain.Book;
-import com.dsm.library.domain.Library;
+import com.dsm.library.domain.library.Library;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

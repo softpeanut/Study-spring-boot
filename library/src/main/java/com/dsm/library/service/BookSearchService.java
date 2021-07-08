@@ -1,8 +1,8 @@
 package com.dsm.library.service;
 
-import com.dsm.library.domain.Book;
-import com.dsm.library.repository.BookRepository;
-import com.dsm.library.repository.LibraryRepository;
+import com.dsm.library.domain.book.Book;
+import com.dsm.library.domain.book.BookRepository;
+import com.dsm.library.domain.library.LibraryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,5 @@
-package com.dsm.library.repository;
+package com.dsm.library.domain.library;
 
-import com.dsm.library.domain.Library;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LibraryRepository extends JpaRepository<Library, Long> {

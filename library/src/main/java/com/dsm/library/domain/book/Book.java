@@ -1,5 +1,6 @@
-package com.dsm.library.domain;
+package com.dsm.library.domain.book;
 
+import com.dsm.library.domain.library.Library;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

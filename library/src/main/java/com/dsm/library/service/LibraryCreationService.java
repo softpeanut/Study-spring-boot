@@ -1,7 +1,7 @@
 package com.dsm.library.service;
 
-import com.dsm.library.domain.Library;
-import com.dsm.library.repository.LibraryRepository;
+import com.dsm.library.domain.library.Library;
+import com.dsm.library.domain.library.LibraryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class LibraryCreationService {
         Library library = Library.builder()
                 .name(libraryName)
                 .foundingYear(LocalDate.now())
-                .build();   // 빌더 패턴
+                .build();
 
         libraryRepository.save(library);
     }

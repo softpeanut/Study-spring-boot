@@ -8,9 +8,9 @@ spring:
     ansi:
       enabled: always
   datasource:
-    driver-class-name: ${DATABASE_DRIVER:com.mysql.cj.jdbc.Driver}
+    driver-class-name: ${DATABASE_DRIVER}
     url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME:root}
+    username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
 
 server:

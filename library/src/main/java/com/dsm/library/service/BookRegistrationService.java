@@ -1,14 +1,14 @@
 package com.dsm.library.service;
 
-import com.dsm.library.domain.Book;
-import com.dsm.library.domain.Library;
-import com.dsm.library.repository.BookRepository;
-import com.dsm.library.repository.LibraryRepository;
+import com.dsm.library.domain.book.Book;
+import com.dsm.library.domain.library.Library;
+import com.dsm.library.domain.book.BookRepository;
+import com.dsm.library.domain.library.LibraryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor// 나중에 DI 이론이나 Lombok에 대해서 더 공부할것
+@RequiredArgsConstructor
 public class BookRegistrationService {
 
     private final BookRepository bookRepository;

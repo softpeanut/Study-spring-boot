@@ -21,7 +21,6 @@ public class BookController {
     public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
         bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
     }
-
     @GetMapping("/book")
     public BookResponse searchBooks() {
         return new BookResponse(
