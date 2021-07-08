@@ -3,6 +3,7 @@ package com.dsm.library.service;
 import com.dsm.library.domain.book.Book;
 import com.dsm.library.domain.book.BookRepository;
 import com.dsm.library.domain.library.LibraryRepository;
+import com.dsm.library.exception.LibraryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,6 @@ public class BookSearchService {
     public List<Book> searchBook(Long id) {
         return libraryRepository.findById(id)
                 .map(bookRepository::findAllByLibrary)
-                .orElseThrow();
+                .orElseThrow(() -> new LibraryNotFoundException(id));
     }
 }

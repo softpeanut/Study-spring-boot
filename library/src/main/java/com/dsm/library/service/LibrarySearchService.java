@@ -1,7 +1,9 @@
 package com.dsm.library.service;
 
 import com.dsm.library.controller.response.LibraryResponse;
+import com.dsm.library.domain.library.Library;
 import com.dsm.library.domain.library.LibraryRepository;
+import com.dsm.library.exception.LibraryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class LibrarySearchService {
                 .collect(Collectors.toList());
 
         return libraries;
+    }
+
+    public Library getLibrary(long libraryId) {
+        return libraryRepository.findById(libraryId)
+                .orElseThrow(() -> new LibraryNotFoundException(libraryId));
     }
 }
