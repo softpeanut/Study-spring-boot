@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-public class BoardModifyServiceImpl implements BoardModifyService {
+public class BoardModificationServiceImpl implements BoardModificationService {
     private final BoardRepository boardRepository;
 
     @Override
