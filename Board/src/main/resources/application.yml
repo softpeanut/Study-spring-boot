@@ -1,14 +1,18 @@
 spring:
   jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    generate-ddl: false
     show-sql: true
   output:
     ansi:
       enabled: always
   datasource:
-    driver-class-name: ${DATABASE_DRIVER}
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
