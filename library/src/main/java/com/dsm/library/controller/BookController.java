@@ -1,13 +1,11 @@
 package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationBookRequest;
+import com.dsm.library.controller.response.BookResponse;
 import com.dsm.library.service.BookRegistrationService;
 import com.dsm.library.service.BookSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.dsm.library.controller.response.BookResponse;
-
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,22 +22,12 @@ public class BookController {
     }
     @GetMapping("/book")
     public BookResponse searchBooks() {
-        return new BookResponse(
-                bookSearchService.searchBooks()
-                        .stream()
-                        .map(book -> new BookResponse.BookInformation(book.getBookId(), book.getTitle(), book.getLibrary().getName()))
-                        .collect(Collectors.toList())
-        );
+        return new BookResponse(bookSearchService.searchBooks());
     }
 
     @GetMapping("/books/{libraryId}")
     public BookResponse searchBook(@PathVariable Long libraryId) {
-        return new BookResponse(
-                bookSearchService.searchBook(libraryId)
-                    .stream()
-                    .map(book -> new BookResponse.BookInformation(book.getBookId(), book.getTitle(), book.getLibrary().getName()))
-                    .collect(Collectors.toList())
-        );
+        return new BookResponse(bookSearchService.searchBooksInLibrary(libraryId));
     }
 
 }
