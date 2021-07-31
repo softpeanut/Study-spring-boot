@@ -2,7 +2,6 @@ package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationLibraryRequest;
 import com.dsm.library.controller.response.LibraryResponse;
-import com.dsm.library.domain.library.Library;
 import com.dsm.library.service.LibraryCreationService;
 import com.dsm.library.service.LibrarySearchService;
 import lombok.RequiredArgsConstructor;
@@ -26,16 +25,12 @@ public class LibraryController {
     @GetMapping("/library")
     @ResponseStatus(HttpStatus.OK)
     public LibraryResponse searchLibrary() {
-        return new LibraryResponse(searchService.test());
+        return new LibraryResponse(searchService.searchLibrary());
     }
 
     @GetMapping("/libraries/{libraryId}")
     public LibraryResponse.Library searchLibrary(@PathVariable("libraryId") long libraryId) {
-        Library library = searchService.getLibrary(libraryId);
-
-        return new LibraryResponse.Library(
-                library.getId(),
-                library.getName(),
-                library.getFoundingYear());
+        LibraryResponse.Library library = searchService.getLibrary(libraryId);
+        return library;
     }
 }
