@@ -4,6 +4,7 @@ import com.dsm.library.domain.book.Book;
 import com.dsm.library.domain.library.Library;
 import com.dsm.library.domain.book.BookRepository;
 import com.dsm.library.domain.library.LibraryRepository;
+import com.dsm.library.exception.LibraryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class BookRegistrationService {
 
     public void createBook(String title, long libraryId) throws Exception {
             Library library = libraryRepository.findById(libraryId)
-                    .orElseThrow(Exception::new);
+                    .orElseThrow(() -> new LibraryNotFoundException(libraryId));
             Book book = new Book(null, title, library);
 
             bookRepository.save(book);
