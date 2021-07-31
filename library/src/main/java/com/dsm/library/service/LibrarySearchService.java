@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class LibrarySearchService {
     private final LibraryRepository libraryRepository;
 
-    public List<LibraryResponse.Library> test() {
+    public List<LibraryResponse.Library> searchLibrary() {
         List<LibraryResponse.Library> libraries = libraryRepository.findAll()
                 .stream()
                 .map(library -> new LibraryResponse.Library(library.getId(), library.getName(), library.getFoundingYear()))
@@ -24,8 +24,12 @@ public class LibrarySearchService {
         return libraries;
     }
 
-    public Library getLibrary(long libraryId) {
-        return libraryRepository.findById(libraryId)
+    public LibraryResponse.Library getLibrary(long libraryId) {
+        Library library = libraryRepository.findById(libraryId)
                 .orElseThrow(() -> new LibraryNotFoundException(libraryId));
+        return new LibraryResponse.Library(
+                library.getId(),
+                library.getName(),
+                library.getFoundingYear());
     }
 }
