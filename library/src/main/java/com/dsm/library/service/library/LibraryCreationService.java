@@ -1,4 +1,4 @@
-package com.dsm.library.service;
+package com.dsm.library.service.library;
 
 import com.dsm.library.domain.library.Library;
 import com.dsm.library.domain.library.LibraryRepository;
