@@ -2,8 +2,8 @@ package com.dsm.library.controller;
 
 import com.dsm.library.controller.request.RegistrationLibraryRequest;
 import com.dsm.library.controller.response.LibraryResponse;
-import com.dsm.library.service.LibraryCreationService;
-import com.dsm.library.service.LibrarySearchService;
+import com.dsm.library.service.library.LibraryCreationService;
+import com.dsm.library.service.library.LibrarySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
