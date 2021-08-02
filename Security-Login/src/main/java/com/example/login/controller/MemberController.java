@@ -9,23 +9,32 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/signup")
+    @GetMapping("/")
+    public String home() {
+        return "Welcome!";
+    }
+
+    @PostMapping("/api/signup")
     public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberDto) {
         return ResponseEntity.ok(memberService.signup(memberDto));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<MemberResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
-        return ResponseEntity.ok(memberService.login(memberRequestDto));
-    }
-
-    @GetMapping("/logout")
-    public void logout() {
+    public void login() {
 
     }
+
+/*    @GetMapping("/user")
+    public String user() {
+        return "user";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }*/
 
 }
