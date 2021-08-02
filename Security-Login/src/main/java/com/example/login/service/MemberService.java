@@ -26,9 +26,4 @@ public class MemberService {
         return MemberResponseDto.of(memberRepository.save(member));
     }
 
-    @Transactional
-    public MemberResponseDto login(MemberRequestDto memberRequestDto) {
-
-    }
-
 }
