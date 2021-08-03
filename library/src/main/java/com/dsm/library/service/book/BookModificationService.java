@@ -16,7 +16,7 @@ public class BookModificationService {
         bookRepository.findById(bookId)
                 .map(book -> {
                     book.setTitle(request.getTitle());
-                    book.setLibrary(request.getLibraryId());
+                    book.setLibrary(request.getLibrary());
                     bookRepository.save(book);
                     return book;
                 })
