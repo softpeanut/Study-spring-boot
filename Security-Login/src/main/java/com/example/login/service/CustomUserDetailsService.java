@@ -1,6 +1,5 @@
 package com.example.login.service;
 
-import com.example.login.security.CustomUserDetails;
 import com.example.login.domain.Member;
 import com.example.login.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
