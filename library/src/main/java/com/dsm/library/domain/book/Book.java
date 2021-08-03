@@ -17,10 +17,11 @@ public class Book {
     @Column(name = "id")
     private Long bookId;
 
-    @Column(name = "title")
     @Setter
+    @Column(name = "title")
     private String title;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "library_id", referencedColumnName = "id")
     private Library library;
