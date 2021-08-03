@@ -1,7 +1,9 @@
 package com.dsm.library.controller;
 
+import com.dsm.library.controller.request.ModificationBookRequest;
 import com.dsm.library.controller.request.RegistrationBookRequest;
 import com.dsm.library.controller.response.BookResponse;
+import com.dsm.library.service.book.BookModificationService;
 import com.dsm.library.service.book.BookRegistrationService;
 import com.dsm.library.service.book.BookSearchService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ public class BookController {
 
     private final BookRegistrationService bookRegistrationService;
     private final BookSearchService bookSearchService;
+    private final BookModificationService bookModificationService;
 
 
     @PostMapping("/book")
@@ -28,6 +31,11 @@ public class BookController {
     @GetMapping("/books/{libraryId}")
     public BookResponse searchBook(@PathVariable Long libraryId) {
         return new BookResponse(bookSearchService.searchBooksInLibrary(libraryId));
+    }
+
+    @PatchMapping("/book/{bookId}")
+    public void updateBook(@PathVariable Long bookId, @RequestBody ModificationBookRequest request) {
+        bookModificationService.updateBook(bookId, request);
     }
 
 }
