@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ModificationBookRequest {
     private String title;
-    private Library libraryId;
+    private Library library;
 }
