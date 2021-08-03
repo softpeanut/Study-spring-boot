@@ -18,19 +18,19 @@ public class BookController {
     private final BookSearchService bookSearchService;
     private final BookModificationService bookModificationService;
 
-
-    @PostMapping("/book")
-    public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
-        bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
-    }
-    @GetMapping("/book")
+    @GetMapping("/books")
     public BookResponse searchBooks() {
-        return new BookResponse(bookSearchService.searchBooks());
+        return new BookResponse("전체 책 목록입니다.", bookSearchService.searchBooks());
     }
 
     @GetMapping("/books/{libraryId}")
     public BookResponse searchBook(@PathVariable Long libraryId) {
-        return new BookResponse(bookSearchService.searchBooksInLibrary(libraryId));
+        return new BookResponse("LibraryId가 "+libraryId+"인 도서관의 책 목록입니다.",bookSearchService.searchBooksInLibrary(libraryId));
+    }
+
+    @PostMapping("/book")
+    public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
+        bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
     }
 
     @PatchMapping("/book/{bookId}")
