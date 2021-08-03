@@ -18,7 +18,7 @@ public class BookController {
     private final BookSearchService bookSearchService;
     private final BookModificationService bookModificationService;
 
-    @GetMapping("/books")
+    @GetMapping("/book")
     public BookResponse searchBooks() {
         return new BookResponse("전체 책 목록입니다.", bookSearchService.searchBooks());
     }
