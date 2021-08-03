@@ -1,11 +1,7 @@
 package com.dsm.library.domain.book;
 
 import com.dsm.library.domain.library.Library;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
@@ -22,9 +18,11 @@ public class Book {
     private Long bookId;
 
     @Column(name = "title")
+    @Setter
     private String title;
 
     @ManyToOne
     @JoinColumn(name = "library_id", referencedColumnName = "id")
     private Library library;
+
 }
