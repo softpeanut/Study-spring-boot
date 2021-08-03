@@ -9,6 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class BookResponse {
+    private String message;
+
     private List<BookInformation> books;
 
     @AllArgsConstructor
