@@ -1,4 +1,4 @@
-package com.example.login.security;
+package com.example.login.service;
 
 import com.example.login.domain.Member;
 import lombok.AllArgsConstructor;
