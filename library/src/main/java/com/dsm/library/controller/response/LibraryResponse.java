@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class LibraryResponse {
+    private String message;
+
     private List<Library> libraries;
 
     @AllArgsConstructor
