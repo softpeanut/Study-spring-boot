@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegistrationBookRequest {
     private String title;
-    private long libraryId;
+    private Long libraryId;
 }
