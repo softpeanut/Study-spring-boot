@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ModificationBookRequest {
     private String title;
-    private Library library;
+    private Long libraryId;
 }
