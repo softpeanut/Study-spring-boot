@@ -3,7 +3,6 @@ package com.example.jwtsecurity.controller;
 import com.example.jwtsecurity.controller.dto.MemberRequestDto;
 import com.example.jwtsecurity.controller.dto.MemberResponseDto;
 import com.example.jwtsecurity.controller.dto.TokenDto;
-import com.example.jwtsecurity.controller.dto.TokenRequestDto;
 import com.example.jwtsecurity.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,4 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(memberRequestDto));
     }
 
-    @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
-    }
 }
