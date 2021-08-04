@@ -1,7 +1,7 @@
 package com.example.jwtsecurity.config;
 
-import com.example.jwtsecurity.jwt.JwtAccessDeniedHandler;
-import com.example.jwtsecurity.jwt.JwtAuthenticationEntryPoint;
+import com.example.jwtsecurity.exception.JwtAccessDeniedException;
+import com.example.jwtsecurity.exception.JwtAuthenticationException;
 import com.example.jwtsecurity.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtAuthenticationException jwtAuthenticationException;
+    private final JwtAccessDeniedException jwtAccessDeniedException;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,8 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
 
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(jwtAuthenticationException)
+                .accessDeniedHandler(jwtAccessDeniedException)
 
                 .and()
                 .headers()
