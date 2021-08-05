@@ -1,6 +1,6 @@
 package com.example.jwtsecurity.jwt;
 
-import com.example.jwtsecurity.controller.dto.TokenDto;
+import com.example.jwtsecurity.controller.dto.TokenResponseDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -33,7 +33,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public TokenDto generateTokenDto(Authentication authentication) {
+    public TokenResponseDto generateTokenDto(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -53,7 +53,7 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                  .compact();
 
-        return TokenDto.builder()
+        return TokenResponseDto.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
