@@ -7,6 +7,7 @@ import com.dsm.library.service.book.BookModificationService;
 import com.dsm.library.service.book.BookRegistrationService;
 import com.dsm.library.service.book.BookSearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,11 +30,13 @@ public class BookController {
     }
 
     @PostMapping("/book")
+    @ResponseStatus(HttpStatus.CREATED)
     public void registerBook(@RequestBody RegistrationBookRequest request) throws Exception {
         bookRegistrationService.createBook(request.getTitle(), request.getLibraryId());
     }
 
     @PatchMapping("/book/{bookId}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void updateBook(@PathVariable Long bookId, @RequestBody ModificationBookRequest request) {
         bookModificationService.updateBook(bookId, request);
     }
