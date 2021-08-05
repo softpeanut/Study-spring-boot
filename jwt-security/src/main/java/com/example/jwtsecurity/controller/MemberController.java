@@ -1,6 +1,5 @@
 package com.example.jwtsecurity.controller;
 
-
 import com.example.jwtsecurity.controller.dto.MemberResponseDto;
 import com.example.jwtsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
