@@ -1,7 +1,7 @@
 package com.example.jwtsecurity.service;
 
-import com.example.jwtsecurity.domain.entity.Member;
-import com.example.jwtsecurity.domain.repository.MemberRepository;
+import com.example.jwtsecurity.domain.member.Member;
+import com.example.jwtsecurity.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

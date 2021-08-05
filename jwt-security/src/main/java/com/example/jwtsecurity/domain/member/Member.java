@@ -1,5 +1,6 @@
-package com.example.jwtsecurity.domain.entity;
+package com.example.jwtsecurity.domain.member;
 
+import com.example.jwtsecurity.domain.Authority;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,6 +1,6 @@
 package com.example.jwtsecurity.controller.dto;
 
-import com.example.jwtsecurity.domain.entity.Member;
+import com.example.jwtsecurity.domain.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

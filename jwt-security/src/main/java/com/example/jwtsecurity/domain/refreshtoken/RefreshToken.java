@@ -1,4 +1,4 @@
-package com.example.jwtsecurity.domain.entity;
+package com.example.jwtsecurity.domain.refreshtoken;
 
 import lombok.Builder;
 import lombok.Getter;

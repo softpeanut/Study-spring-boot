@@ -1,7 +1,7 @@
 package com.example.jwtsecurity.controller.dto;
 
-import com.example.jwtsecurity.domain.entity.Authority;
-import com.example.jwtsecurity.domain.entity.Member;
+import com.example.jwtsecurity.domain.Authority;
+import com.example.jwtsecurity.domain.member.Member;
 import lombok.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

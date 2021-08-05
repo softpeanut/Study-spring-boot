@@ -1,6 +1,6 @@
-package com.example.jwtsecurity.domain.repository;
+package com.example.jwtsecurity.domain.refreshtoken;
 
-import com.example.jwtsecurity.domain.entity.RefreshToken;
+import com.example.jwtsecurity.domain.refreshtoken.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

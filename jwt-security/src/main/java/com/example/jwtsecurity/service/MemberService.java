@@ -1,7 +1,7 @@
 package com.example.jwtsecurity.service;
 
 import com.example.jwtsecurity.controller.dto.MemberResponseDto;
-import com.example.jwtsecurity.domain.repository.MemberRepository;
+import com.example.jwtsecurity.domain.member.MemberRepository;
 import com.example.jwtsecurity.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
