@@ -7,6 +7,5 @@ import lombok.Getter;
 @Getter
 public class CommonExceptionResponse {
     private final String code;
-    private final String message;
 }
 
