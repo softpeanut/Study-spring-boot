@@ -26,7 +26,7 @@ public class LibrarySearchService {
 
     public LibraryResponse.Library getLibrary(long libraryId) {
         Library library = libraryRepository.findById(libraryId)
-                .orElseThrow(() -> new LibraryNotFoundException(libraryId));
+                .orElseThrow(LibraryNotFoundException::new);
         return new LibraryResponse.Library(
                 library.getId(),
                 library.getName(),
