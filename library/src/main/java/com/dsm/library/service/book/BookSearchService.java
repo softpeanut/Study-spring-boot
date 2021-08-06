@@ -38,7 +38,7 @@ public class BookSearchService {
     public List<Book> showBooks(Long libraryId) {
         List<Book> books = libraryRepository.findById(libraryId)
                 .map(bookRepository::findAllByLibrary)
-                .orElseThrow(() -> new LibraryNotFoundException(libraryId));
+                .orElseThrow(LibraryNotFoundException::new);
         return books;
     }
 }
