@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<CommonExceptionResponse> handleLibraryNotFoundException(BusinessException e) {
-        return new ResponseEntity<>(new CommonExceptionResponse(e.getCode(), e.getMessage()), e.getStatus());
+        return new ResponseEntity<>(new CommonExceptionResponse(e.getCode()), e.getStatus());
     }
 }
