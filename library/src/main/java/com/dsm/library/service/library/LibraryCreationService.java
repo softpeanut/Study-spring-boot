@@ -15,7 +15,7 @@ public class LibraryCreationService {
 
     public void createLibrary(String libraryName) {
         if(libraryRepository.existsByName(libraryName)) {
-            throw new LibraryAlreadyExistsException(libraryName);
+            throw new LibraryAlreadyExistsException();
         }
 
         Library library = Library.builder()
