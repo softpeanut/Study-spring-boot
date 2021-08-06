@@ -17,7 +17,7 @@ public class BookRegistrationService {
 
     public void createBook(String title, long libraryId) throws Exception {
             Library library = libraryRepository.findById(libraryId)
-                    .orElseThrow(() -> new LibraryNotFoundException(libraryId));
+                    .orElseThrow(LibraryNotFoundException::new);
             Book book = new Book(null, title, library);
 
             bookRepository.save(book);
