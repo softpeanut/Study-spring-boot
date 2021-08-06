@@ -25,7 +25,7 @@ public class BookModificationService {
                     bookRepository.save(book);
                     return book;
                 })
-                .orElseThrow(() -> new BookNotFoundException(bookId));
+                .orElseThrow(BookNotFoundException::new);
     }
 
 }
