@@ -26,10 +26,5 @@ public class LibraryController {
     public LibraryResponse searchLibrary() {
         return new LibraryResponse("전체 도서관 목록입니다.", searchService.searchLibrary());
     }
-
-    @GetMapping("/libraries/{libraryId}")
-    public LibraryResponse.Library searchLibrary(@PathVariable("libraryId") long libraryId) {
-        LibraryResponse.Library library = searchService.getLibrary(libraryId);
-        return library;
-    }
+    
 }
