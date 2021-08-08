@@ -26,7 +26,8 @@ public class BookController {
 
     @GetMapping("/books/{libraryId}")
     public BookResponse searchBook(@PathVariable Long libraryId) {
-        return new BookResponse("LibraryId가 "+libraryId+"인 도서관의 책 목록입니다.",bookSearchService.searchBooksInLibrary(libraryId));
+        return new BookResponse("LibraryId가 "+libraryId+"인 도서관의 책 목록입니다.",
+                bookSearchService.searchBooksInLibrary(libraryId));
     }
 
     @PostMapping("/book")
