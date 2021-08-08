@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ModificationBookRequest {
-    private String title;
     private Long libraryId;
 }
