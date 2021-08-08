@@ -18,9 +18,9 @@ public class BookModificationService {
     public void updateBook(Long bookId, ModificationBookRequest request) {
         bookRepository.findById(bookId)
                 .map(book -> {
-                    book.setTitle(request.getTitle());
                     book.setLibrary(
-                            libraryRepository.findById(request.getLibraryId()).orElseThrow(LibraryNotFoundException::new)
+                            libraryRepository.findById(request.getLibraryId())
+                                    .orElseThrow(LibraryNotFoundException::new)
                     );
                     bookRepository.save(book);
                     return book;
