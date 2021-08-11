@@ -17,7 +17,6 @@ public class Book {
     @Column(name = "id")
     private Long bookId;
 
-    @Setter
     @Column(name = "title")
     private String title;
 
