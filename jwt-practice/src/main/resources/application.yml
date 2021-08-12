@@ -1,1 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PWD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+jwt:
+  secret: ${SECRET}
