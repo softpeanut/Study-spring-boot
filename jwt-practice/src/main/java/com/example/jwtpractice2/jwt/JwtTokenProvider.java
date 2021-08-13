@@ -37,34 +37,35 @@ public class JwtTokenProvider {
         Date now = new Date();
 
         String token = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, init())
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenExpiration))
+                .signWith(SignatureAlgorithm.HS256, init())
                 .compact();
 
         return new TokenResponse(token);
     }
 
+    public boolean validateToken(String jwtToken) {
+        try {
+            return !getUserPk(jwtToken)
+                    .getExpiration()
+                    .before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token).getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretkey).parseClaimsJws(token).getBody().getSubject();
+    public Claims getUserPk(String token) {
+        return Jwts.parser().setSigningKey(secretkey).parseClaimsJws(token).getBody();
     }
 
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
-    }
-
-    public boolean validateToken(String jwtToken) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretkey).parseClaimsJws(jwtToken);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
