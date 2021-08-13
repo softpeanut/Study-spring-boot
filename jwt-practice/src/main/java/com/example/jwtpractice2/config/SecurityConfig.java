@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .formLogin().disable()
 
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
