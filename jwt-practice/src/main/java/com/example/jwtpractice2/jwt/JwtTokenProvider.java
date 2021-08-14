@@ -26,7 +26,7 @@ public class JwtTokenProvider {
 
     @Autowired
     private UserDetailsService userDetailsService;
-    private static final Long tokenExpiration = 1000 * 60 * 60 * 2L;
+    private Long tokenExpiration = 1000 * 60 * 60 * 2L;
 
 /*    @Value("${jwt.secret}")
     private String secretkey;*/
