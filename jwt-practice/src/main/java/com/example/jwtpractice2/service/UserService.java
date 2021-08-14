@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final MemberRepository memberRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserResponse me() {
         System.out.println("me");
         return memberRepository.findById(SecurityUtil.getCurrentMemberId())
