@@ -24,11 +24,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                          FilterChain chain) throws IOException, ServletException {
 
         String token = jwtTokenProvider.resolveToken(request);
-        System.out.println("안녕");
+
+        System.out.println("요청");
+
         if(token!=null && jwtTokenProvider.validateToken(token)) {
-            System.out.println("하이");
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
-            System.out.println("헬로우");
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
