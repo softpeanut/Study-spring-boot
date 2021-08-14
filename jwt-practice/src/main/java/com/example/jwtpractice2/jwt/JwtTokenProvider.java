@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
-    private Long tokenExpiration = 1000L * 60 * 60;
+    private Long tokenExpiration = 1000 * 60 * 60 * 2L;
 
     @Value("${jwt.secret}")
     private String secretkey;
@@ -53,6 +54,7 @@ public class JwtTokenProvider {
                     .getExpiration()
                     .before(new Date());
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
