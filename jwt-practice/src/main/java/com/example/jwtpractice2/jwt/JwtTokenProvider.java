@@ -2,12 +2,7 @@ package com.example.jwtpractice2.jwt;
 
 import com.example.jwtpractice2.dto.TokenResponse;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,32 +10,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
-import java.security.Key;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    private Long tokenExpiration = 1000 * 60 * 60 * 2L;
+    private final UserDetailsService userDetailsService;
+    private static final Long tokenExpiration = 1000 * 60 * 60 * 2L;
 
-/*    @Value("${jwt.secret}")
-    private String secretkey;*/
+    @Value("${jwt.secret}")
+    private String secretkey;
 
-    private final Key secretkey;
-
-    public JwtTokenProvider(@Value("${jwt.secret}") String secretkey) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretkey);
-        this.secretkey = Keys.hmacShaKeyFor(keyBytes);
+    protected String init() {
+        return Base64.getEncoder().encodeToString(secretkey.getBytes(StandardCharsets.UTF_8));
     }
-
-/*    protected String init() {
-        return Base64.getEncoder().encodeToString(secretkey.getEncoded());
-    }*/
 
     public TokenResponse createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
@@ -51,7 +39,7 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenExpiration))
-                .signWith(secretkey, SignatureAlgorithm.HS256)
+                .signWith(SignatureAlgorithm.HS256, init())
                 .compact();
 
         return new TokenResponse(token);
@@ -74,7 +62,7 @@ public class JwtTokenProvider {
     }
 
     public Claims getUserPk(String token) {
-        return Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(init()).parseClaimsJws(token).getBody();
     }
 
     public String resolveToken(HttpServletRequest request) {
