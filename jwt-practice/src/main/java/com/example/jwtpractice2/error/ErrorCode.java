@@ -1,6 +1,5 @@
 package com.example.jwtpractice2.error;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
