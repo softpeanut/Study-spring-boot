@@ -1,6 +1,7 @@
 package com.example.jwtpractice2.jwt;
 
 import com.example.jwtpractice2.dto.TokenResponse;
+import com.example.jwtpractice2.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,8 +52,7 @@ public class JwtTokenProvider {
                     .getExpiration()
                     .before(new Date());
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new InvalidTokenException();
         }
     }
 
