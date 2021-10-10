@@ -13,6 +13,10 @@ spring:
     password: ${DB_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  redis:
+    port: ${REDIS_PORT}
+    host: ${REDIS_HOST}
+
   jackson:
     property-naming-strategy: SNAKE_CASE
 
