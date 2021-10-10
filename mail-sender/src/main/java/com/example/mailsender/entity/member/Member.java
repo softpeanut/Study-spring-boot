@@ -23,9 +23,6 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Certification certification;
-
     @Builder
     public Member(String name, String email, String password) {
         this.name = name;
