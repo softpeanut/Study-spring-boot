@@ -1,4 +1,4 @@
-package com.example.mailsender.entity;
+package com.example.mailsender.entity.member;
 
 import lombok.AccessLevel;
 import lombok.Builder;
