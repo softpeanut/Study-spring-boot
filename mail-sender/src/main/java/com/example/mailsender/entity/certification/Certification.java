@@ -17,10 +17,10 @@ import java.io.Serializable;
 @RedisHash
 public class Certification implements Serializable {
     @Id
-    private String email;
+    private String code;
 
     @Indexed
-    private String code;
+    private String email;
     private Certified certified;
 
     @TimeToLive

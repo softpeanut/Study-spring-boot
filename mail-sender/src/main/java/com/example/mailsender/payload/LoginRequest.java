@@ -1,4 +1,4 @@
-package com.example.mailsender.payload.request;
+package com.example.mailsender.payload;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

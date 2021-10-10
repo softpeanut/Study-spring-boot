@@ -1,8 +1,8 @@
 package com.example.mailsender.service;
 
-import com.example.mailsender.payload.request.EmailRequest;
-import com.example.mailsender.payload.request.EmailVerifiedRequest;
-import com.example.mailsender.payload.request.SignupRequest;
+import com.example.mailsender.payload.EmailRequest;
+import com.example.mailsender.payload.EmailVerifiedRequest;
+import com.example.mailsender.payload.SignupRequest;
 
 public interface MemberService {
     void sendEmail(EmailRequest request);
