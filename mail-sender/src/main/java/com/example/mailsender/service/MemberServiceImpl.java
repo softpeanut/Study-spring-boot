@@ -2,10 +2,7 @@ package com.example.mailsender.service;
 
 import com.example.mailsender.entity.Member;
 import com.example.mailsender.entity.MemberRepository;
-import com.example.mailsender.entity.Role;
-import com.example.mailsender.payload.request.LoginRequest;
 import com.example.mailsender.payload.request.SignupRequest;
-import com.example.mailsender.payload.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,13 +25,7 @@ public class MemberServiceImpl implements MemberService {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ROLE_USER)
                 .build());
-    }
-
-    @Override
-    public TokenResponse login(LoginRequest request) {
-        return null;
     }
 
 }
