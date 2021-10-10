@@ -1,5 +1,7 @@
 package com.example.mailsender.controller;
 
+import com.example.mailsender.payload.request.EmailRequest;
+import com.example.mailsender.payload.request.EmailVerifiedRequest;
 import com.example.mailsender.payload.request.SignupRequest;
 import com.example.mailsender.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +15,13 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/email")
-    public void sendEmail(@RequestBody String email) {
-        memberService.sendEmail(email);
+    public void sendEmail(@RequestBody EmailRequest request) {
+        memberService.sendEmail(request);
     }
 
     @PostMapping("/verify")
-    public void verifyAccount(@RequestBody String code) {
-        memberService.verifyAccount(code);
+    public void verifyAccount(@RequestBody EmailVerifiedRequest request) {
+        memberService.verifyAccount(request);
     }
 
     @PostMapping("/signup")
