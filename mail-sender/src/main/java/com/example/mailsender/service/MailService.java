@@ -4,6 +4,7 @@ import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
 import com.example.mailsender.entity.certification.Certified;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,10 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class MailService {
+
+    @Value("${code.exp}")
+    private Integer CODE_EXP;
+
     private final JavaMailSender javaMailSender;
     private final CertificationRepository certificationRepository;
     private static String certificationCode = createKey();
@@ -32,10 +37,10 @@ public class MailService {
             javaMailSender.send(message);
 
             certificationRepository.save(Certification.builder()
-                    .email(email)
                     .code(code)
+                    .email(email)
                     .certified(Certified.NOT_CERTIFIED)
-                    .codeExp(180)
+                    .codeExp(CODE_EXP)
                     .build());
 
             return code;
