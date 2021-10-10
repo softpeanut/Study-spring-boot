@@ -2,9 +2,11 @@ package com.example.mailsender.service;
 
 import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
+import com.example.mailsender.entity.certification.Certified;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -17,6 +19,7 @@ public class MailService {
     private final CertificationRepository certificationRepository;
     private static String certificationCode = createKey();
 
+    @Transactional
     public String sendEmail(String email) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
@@ -27,11 +30,17 @@ public class MailService {
             message.setSubject("[Test 이메일 인증]");
             message.setText(code);
             javaMailSender.send(message);
+
             certificationRepository.save(Certification.builder()
+                    .email(email)
                     .code(code)
+                    .certified(Certified.NOT_CERTIFIED)
+                    .codeExp(180)
                     .build());
+
             return code;
         } catch (MessagingException e) {
+            e.getStackTrace();
             throw new IllegalArgumentException();
         }
 
