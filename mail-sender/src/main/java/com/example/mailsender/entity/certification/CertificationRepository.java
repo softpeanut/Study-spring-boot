@@ -1,8 +1,10 @@
 package com.example.mailsender.entity.certification;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-public interface CertificationRepository extends JpaRepository<Certification, String> {
+@Repository
+public interface CertificationRepository extends CrudRepository<Certification, String> {
     Optional<Certification> findByEmail(String email);
 }
