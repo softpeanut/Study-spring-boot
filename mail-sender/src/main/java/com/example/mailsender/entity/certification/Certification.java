@@ -1,5 +1,6 @@
 package com.example.mailsender.entity.certification;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @RedisHash
 public class Certification implements Serializable {
     @Id
@@ -19,8 +21,14 @@ public class Certification implements Serializable {
 
     @Indexed
     private String code;
-    private boolean certified;
+    private Certified certified;
 
     @TimeToLive
     private Integer codeExp;
+
+    public Certification updateCertified(Certified certified) {
+        this.certified = certified;
+        return this;
+    }
+
 }
