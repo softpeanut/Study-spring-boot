@@ -5,12 +5,10 @@ import com.example.mailsender.entity.certification.CertificationRepository;
 import com.example.mailsender.entity.certification.Certified;
 import com.example.mailsender.entity.member.Member;
 import com.example.mailsender.entity.member.MemberRepository;
-import com.example.mailsender.exception.EmailNotFoundException;
-import com.example.mailsender.exception.MemberEmailAlreadyExistsException;
-import com.example.mailsender.exception.MemberNameAlreadyExistsException;
-import com.example.mailsender.payload.request.EmailRequest;
-import com.example.mailsender.payload.request.EmailVerifiedRequest;
-import com.example.mailsender.payload.request.SignupRequest;
+import com.example.mailsender.exception.*;
+import com.example.mailsender.payload.EmailRequest;
+import com.example.mailsender.payload.EmailVerifiedRequest;
+import com.example.mailsender.payload.SignupRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final CertificationRepository certificationRepository;
-    private final MailService mailService;
 
     @Override
     public void sendEmail(EmailRequest request) {
@@ -36,9 +34,9 @@ public class MemberServiceImpl implements MemberService {
         Certification certification = certificationRepository.findByEmail(request.getEmail())
                 .orElseThrow(EmailNotFoundException::new);
 
-        if(request.getCode() == certification.getCode()) {
-               certification.updateCertified(Certified.CERTIFIED);
-        }
+        if(request.getCode().equals(certification.getCode())) {
+               certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
+        } else throw new CodeNotCorrectException();
     }
 
     @Override
@@ -49,17 +47,16 @@ public class MemberServiceImpl implements MemberService {
         else if(memberRepository.findByName(request.getName()).isPresent())
             throw new MemberNameAlreadyExistsException();
 
-        Certified certified = certificationRepository.findByEmail(request.getEmail())
-                .map(certification -> certification.getCertified())
+        Certification certification = certificationRepository.findByEmail(request.getEmail())
                 .orElseThrow(EmailNotFoundException::new);
 
-        if(certified == Certified.CERTIFIED) {
+        if(certification.getCertified().equals(Certified.CERTIFIED)) {
             memberRepository.save(Member.builder()
                     .name(request.getName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .build());
-        }
+        } else throw new EmailNotCertifiedException();
 
     }
 
