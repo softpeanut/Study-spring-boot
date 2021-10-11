@@ -19,7 +19,7 @@ public class MemberController {
         memberService.sendEmail(request);
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/email")
     public void verifyAccount(@Valid @RequestBody EmailVerifiedRequest request) {
         memberService.verifyAccount(request);
     }
