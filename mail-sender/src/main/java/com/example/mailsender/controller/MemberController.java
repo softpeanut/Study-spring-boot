@@ -15,12 +15,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/email")
-    public void sendEmail(@RequestBody EmailRequest request) {
+    public void sendEmail(@Valid @RequestBody EmailRequest request) {
         memberService.sendEmail(request);
     }
 
     @PostMapping("/verify")
-    public void verifyAccount(@RequestBody EmailVerifiedRequest request) {
+    public void verifyAccount(@Valid @RequestBody EmailVerifiedRequest request) {
         memberService.verifyAccount(request);
     }
 
