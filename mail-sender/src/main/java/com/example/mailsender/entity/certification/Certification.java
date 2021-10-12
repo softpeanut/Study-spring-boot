@@ -31,4 +31,9 @@ public class Certification implements Serializable {
         return this;
     }
 
+    public Certification updateCode(String code) {
+        this.code = code;
+        return this;
+    }
+
 }
