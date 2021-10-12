@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void verifyAccount(EmailVerifiedRequest request) {
         Certification certification = certificationRepository.findByEmail(request.getEmail())
-                .orElseThrow(EmailNotFoundException::new);
+                .orElseThrow(CodeAlreadyExpiredException::new);
 
         if(request.getCode().equals(certification.getCode())) {
                certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));

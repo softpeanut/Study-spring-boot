@@ -14,7 +14,8 @@ public enum ErrorCode {
     EMAIL_NOT_CERTIFIED(401, "Email Not Certified"),
     SEND_MESSAGE_FAILED(500, "Send Message Failed"),
 
-    CODE_NOT_CORRECT(401, "Code Not Correct");
+    CODE_NOT_CORRECT(401, "Code Not Correct"),
+    CODE_ALREADY_EXPIRED(401, "Code Already Expired");
 
     private int status;
     private String message;
