@@ -19,6 +19,11 @@ public class MemberController {
         memberService.sendEmail(request);
     }
 
+    @GetMapping("/email/re")
+    public void resendEmail(@Valid @RequestBody EmailRequest request) {
+        memberService.resendEmail(request);
+    }
+
     @PostMapping("/email")
     public void verifyAccount(@Valid @RequestBody EmailVerifiedRequest request) {
         memberService.verifyAccount(request);
