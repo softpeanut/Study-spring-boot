@@ -3,6 +3,8 @@ package com.example.mailsender.service;
 import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
 import com.example.mailsender.entity.certification.Certified;
+import com.example.mailsender.exception.EmailNotFoundException;
+import com.example.mailsender.exception.SendMessageFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,43 +24,48 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
     private final CertificationRepository certificationRepository;
-    private static String certificationCode = createKey();
 
     @Transactional
-    public String sendEmail(String email) {
+    public String sendCode(String email) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
-            String code = createCode(certificationCode);
+            String code = createCode(createKey());
             message.setFrom("sdpthf@gmail.com");
             message.addRecipients(Message.RecipientType.TO, email);
             message.setSubject("[Test 이메일 인증]");
             message.setText(code);
             javaMailSender.send(message);
-
-            certificationRepository.save(Certification.builder()
-                    .code(code)
-                    .email(email)
-                    .certified(Certified.NOT_CERTIFIED)
-                    .codeExp(CODE_EXP)
-                    .build());
-
             return code;
         } catch (MessagingException e) {
             e.getStackTrace();
-            throw new IllegalArgumentException();
+            throw new SendMessageFailedException();
         }
 
     }
 
-    public static String createKey() {
-        StringBuffer key = new StringBuffer();
-        Random rnd = new Random();
+    @Transactional
+    public void resendEmail(String email) {
+        certificationRepository.findByEmail(email)
+                .map(certification -> certificationRepository.save(certification.updateCode(sendCode(email))))
+                .orElseThrow(EmailNotFoundException::new);
+    }
 
-        for (int i = 0; i < 6; i++) { // 인증코드 6자리
-            key.append((rnd.nextInt(10)));
-        }
-        return key.toString();
+    @Transactional
+    public void sendEmail(String email) {
+        certificationRepository.save(Certification.builder()
+                .code(sendCode(email))
+                .email(email)
+                .codeExp(CODE_EXP)
+                .certified(Certified.NOT_CERTIFIED)
+                .build());
+    }
+
+    public String createKey() {
+        Random rnd = new Random();
+        String key = Integer.toString(rnd.nextInt(111111) + 99999);
+        System.out.println(key);
+        return key;
     }
 
     public String createCode(String key) {
