@@ -29,6 +29,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public void resendEmail(EmailRequest request) {
+        mailService.resendEmail(request.getEmail());
+    }
+
+    @Override
     @Transactional
     public void verifyAccount(EmailVerifiedRequest request) {
         Certification certification = certificationRepository.findByEmail(request.getEmail())
@@ -37,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
         if(request.getCode().equals(certification.getCode())) {
                certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
         } else throw new CodeNotCorrectException();
+
     }
 
     @Override
@@ -50,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
         Certification certification = certificationRepository.findByEmail(request.getEmail())
                 .orElseThrow(EmailNotFoundException::new);
 
-        if(certification.getCertified().equals(Certified.CERTIFIED)) {
+        if(certification.getCertified() == (Certified.CERTIFIED)) {
             memberRepository.save(Member.builder()
                     .name(request.getName())
                     .email(request.getEmail())
