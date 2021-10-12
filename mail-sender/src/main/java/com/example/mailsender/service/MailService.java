@@ -63,9 +63,7 @@ public class MailService {
 
     public String createKey() {
         Random rnd = new Random();
-        String key = Integer.toString(rnd.nextInt(111111) + 99999);
-        System.out.println(key);
-        return key;
+        return Integer.toString(rnd.nextInt(99999) + 111111);
     }
 
     public String createCode(String key) {
