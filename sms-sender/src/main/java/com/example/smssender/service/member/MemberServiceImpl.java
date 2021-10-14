@@ -5,6 +5,7 @@ import com.example.smssender.entity.certification.CertificationRepository;
 import com.example.smssender.entity.certification.Certified;
 import com.example.smssender.entity.member.Member;
 import com.example.smssender.entity.member.MemberRepository;
+import com.example.smssender.exception.*;
 import com.example.smssender.payload.PhoneNumberRequest;
 import com.example.smssender.payload.SignupRequest;
 import com.example.smssender.payload.SmsVerifiedRequest;
@@ -30,11 +31,11 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void verifyAccount(SmsVerifiedRequest request) {
         Certification certification = certificationRepository.findByPhoneNumber(request.getPhoneNumber())
-                .orElseThrow();
+                .orElseThrow(PhoneNumberNotFoundException::new);
 
         if(request.getCode().equals(certification.getCode())) {
             certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
-        } else throw new IllegalArgumentException();
+        } else throw new CodeNotCorrectException();
 
     }
 
@@ -42,14 +43,14 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void signup(SignupRequest request) {
         if(memberRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent())
-            throw new IllegalArgumentException();
+            throw new MemberPhoneNumberAlreadyExistsException();
         else if(memberRepository.findByName(request.getName()).isPresent())
-            throw new IllegalArgumentException();
+            throw new MemberNameAlreadyExistsException();
         else if(memberRepository.findByUsername(request.getUsername()).isPresent())
-            throw new IllegalArgumentException();
+            throw new MemberUsernameAlreadyExistsException();
 
         Certification certification = certificationRepository.findByPhoneNumber(request.getPhoneNumber())
-                .orElseThrow();
+                .orElseThrow(CertificationNotFoundException::new);
 
         if(certification.getCertified() == Certified.CERTIFIED) {
             memberRepository.save(Member.builder()
@@ -58,7 +59,7 @@ public class MemberServiceImpl implements MemberService {
                     .username(request.getUsername())
                     .password(request.getPassword())
                     .build());
-        } else throw new IllegalArgumentException();
+        } else throw new PhoneNumberInvalidException();
 
     }
 

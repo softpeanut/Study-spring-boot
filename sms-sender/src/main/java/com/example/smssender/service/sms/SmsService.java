@@ -3,6 +3,7 @@ package com.example.smssender.service.sms;
 import com.example.smssender.entity.certification.Certification;
 import com.example.smssender.entity.certification.CertificationRepository;
 import com.example.smssender.entity.certification.Certified;
+import com.example.smssender.exception.CoolsmsConnectFailedException;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -61,7 +61,7 @@ public class SmsService {
             return randomNumber;
         } catch (CoolsmsException e) {
             e.getStackTrace();
-            throw new IllegalArgumentException();
+            throw new CoolsmsConnectFailedException();
         }
 
     }
