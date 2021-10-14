@@ -3,7 +3,6 @@ package com.example.mailsender.service;
 import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
 import com.example.mailsender.entity.certification.Certified;
-import com.example.mailsender.exception.EmailNotFoundException;
 import com.example.mailsender.exception.SendMessageFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +29,7 @@ public class MailService {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
-            String code = createCode(createKey());
+            String code = getCode(createKey());
             message.setFrom("sdpthf@gmail.com");
             message.addRecipients(Message.RecipientType.TO, email);
             message.setSubject("[Test 이메일 인증]");
@@ -42,6 +41,16 @@ public class MailService {
             throw new SendMessageFailedException();
         }
 
+    }
+
+    @Transactional
+    public void sendEmail(String email) {
+        certificationRepository.save(Certification.builder()
+                .code(sendCode(email))
+                .email(email)
+                .codeExp(CODE_EXP)
+                .certified(Certified.NOT_CERTIFIED)
+                .build());
     }
 
     @Transactional
@@ -57,22 +66,12 @@ public class MailService {
                 );
     }
 
-    @Transactional
-    public void sendEmail(String email) {
-        certificationRepository.save(Certification.builder()
-                .code(sendCode(email))
-                .email(email)
-                .codeExp(CODE_EXP)
-                .certified(Certified.NOT_CERTIFIED)
-                .build());
-    }
-
     public String createKey() {
         Random rnd = new Random();
         return Integer.toString(rnd.nextInt(99999) + 111111);
     }
 
-    public String createCode(String key) {
+    public String getCode(String key) {
         return key.substring(0, 3) + "-" + key.substring(3, 6);
     }
 
