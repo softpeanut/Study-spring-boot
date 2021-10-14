@@ -1,5 +1,6 @@
 package com.example.mailsender.entity.member;
 
+import com.example.mailsender.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
