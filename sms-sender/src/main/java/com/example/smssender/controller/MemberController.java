@@ -1,10 +1,10 @@
 package com.example.smssender.controller;
 
+import com.example.smssender.payload.PhoneNumberRequest;
+import com.example.smssender.payload.SmsVerifiedRequest;
 import com.example.smssender.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,13 +13,18 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/code")
-    public void sendCode(String phoneNumber) {
-        memberService.sendCode(phoneNumber);
+    public void sendCode(@RequestBody PhoneNumberRequest request) {
+        memberService.sendCode(request);
     }
 
     @GetMapping("/code/re")
-    public void resendCode(String phoneNumber) {
-        memberService.resendCode(phoneNumber);
+    public void resendCode(@RequestBody PhoneNumberRequest request) {
+        memberService.resendCode(request);
+    }
+
+    @PostMapping("/verify")
+    public void verifyAccount(@RequestBody SmsVerifiedRequest request) {
+        memberService.verifyAccount(request);
     }
 
 }
