@@ -49,14 +49,17 @@ public class MemberServiceImpl implements MemberService {
             throw new IllegalArgumentException();
         else if(memberRepository.findByName(request.getName()).isPresent())
             throw new IllegalArgumentException();
+        else if(memberRepository.findByUsername(request.getUsername()).isPresent())
+            throw new IllegalArgumentException();
 
         Certification certification = certificationRepository.findByPhoneNumber(request.getPhoneNumber())
                 .orElseThrow();
 
         if(certification.getCertified() == Certified.CERTIFIED) {
             memberRepository.save(Member.builder()
-                    .phoneNumber(request.getPhoneNumber())
                     .name(request.getName())
+                    .phoneNumber(request.getPhoneNumber())
+                    .username(request.getUsername())
                     .password(request.getPassword())
                     .build());
         } else throw new IllegalArgumentException();
