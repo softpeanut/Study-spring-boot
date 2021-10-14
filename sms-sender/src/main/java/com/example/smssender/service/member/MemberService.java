@@ -6,7 +6,6 @@ import com.example.smssender.payload.SmsVerifiedRequest;
 
 public interface MemberService {
     void sendCode(PhoneNumberRequest request);
-    void resendCode(PhoneNumberRequest request);
     void verifyAccount(SmsVerifiedRequest request);
     void signup(SignupRequest request);
 }

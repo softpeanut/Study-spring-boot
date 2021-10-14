@@ -27,11 +27,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void resendCode(PhoneNumberRequest request) {
-        smsService.resendCode(request.getPhoneNumber());
-    }
-
-    @Override
     @Transactional
     public void verifyAccount(SmsVerifiedRequest request) {
         Certification certification = certificationRepository.findByPhoneNumber(request.getPhoneNumber())

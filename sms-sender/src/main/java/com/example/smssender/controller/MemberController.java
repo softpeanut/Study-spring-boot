@@ -18,11 +18,6 @@ public class MemberController {
         memberService.sendCode(request);
     }
 
-    @GetMapping("/code/re")
-    public void resendCode(@RequestBody PhoneNumberRequest request) {
-        memberService.resendCode(request);
-    }
-
     @PostMapping("/verify")
     public void verifyAccount(@RequestBody SmsVerifiedRequest request) {
         memberService.verifyAccount(request);
