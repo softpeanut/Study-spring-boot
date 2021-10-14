@@ -1,15 +1,22 @@
 package com.example.smssender.service.sms;
 
+import com.example.smssender.entity.certification.Certification;
+import com.example.smssender.entity.certification.CertificationRepository;
+import com.example.smssender.entity.certification.Certified;
+import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class SmsService {
+
+    @Value("${code.exp}")
+    private Integer codeExp;
 
     @Value("${coolsms.api.key}")
     private String apiKey;
@@ -20,7 +27,29 @@ public class SmsService {
     @Value("${coolsms.phone-number}")
     private String fromNumber;
 
-    public void sendMessage(String toNumber) {
+    private final CertificationRepository certificationRepository;
+
+    public void sendCode(String toNumber) {
+        certificationRepository.save(Certification.builder()
+                .phoneNumber(toNumber)
+                .code(sendMessage(toNumber))
+                .codeExp(codeExp)
+                .certified(Certified.NOT_CERTIFIED)
+                .build());
+    }
+
+    public void resendCode(String toNumber) {
+        certificationRepository.findByPhoneNumber(toNumber)
+                .map(certification -> certification.updateCode(sendMessage(toNumber)))
+                .orElse(Certification.builder()
+                        .phoneNumber(toNumber)
+                        .code(sendMessage(toNumber))
+                        .codeExp(codeExp)
+                        .certified(Certified.NOT_CERTIFIED)
+                        .build());
+    }
+
+    public String sendMessage(String toNumber) {
 
         Message coolsms = new Message(apiKey, apiSecret);
         String randomNumber = getRandomNumber();
@@ -34,8 +63,10 @@ public class SmsService {
 
         try {
             coolsms.send(params);
+            return randomNumber;
         } catch (CoolsmsException e) {
             e.getStackTrace();
+            throw new IllegalArgumentException();
         }
 
     }
