@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.Random;
 
 @Service
 public class SmsService {
@@ -19,25 +20,29 @@ public class SmsService {
     @Value("${coolsms.phone-number}")
     private String fromNumber;
 
-    public void sendMessage(String toNumber, String randomNumber) {
+    public void sendMessage(String toNumber) {
 
         Message coolsms = new Message(apiKey, apiSecret);
+        String randomNumber = getRandomNumber();
 
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("to", toNumber);
         params.put("from", fromNumber);
         params.put("type", "SMS");
-        params.put("text", "[grabMe] 인증번호 "+randomNumber+" 를 입력하세요.");
-        params.put("app_version", "test app 1.2"); // application name and version
+        params.put("text", "[TEST] 인증번호 "+randomNumber+" 를 입력하세요.");
+        params.put("app_version", "test app 1.0");
 
         try {
-            JSONObject obj = (JSONObject) coolsms.send(params);
-            System.out.println(obj.toString());
+            coolsms.send(params);
         } catch (CoolsmsException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCode());
+            e.getStackTrace();
         }
 
+    }
+
+    public String getRandomNumber() {
+        Random random = new Random();
+        return random.toString();
     }
 
 }
