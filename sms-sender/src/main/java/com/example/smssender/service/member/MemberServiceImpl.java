@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(certification.getCertified());
 
         if(request.getCode().equals(certification.getCode())) {
-            certification.updateCertified(Certified.CERTIFIED);
+            certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
         } else throw new IllegalArgumentException();
 
         System.out.println(certification.getCertified());
