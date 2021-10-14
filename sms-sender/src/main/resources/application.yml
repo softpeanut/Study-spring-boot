@@ -1,1 +1,24 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: mysql
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PWD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    port: ${REDIS_PORT}
+    host: ${REDIS_HOST}
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+code:
+  exp: ${EXP}
