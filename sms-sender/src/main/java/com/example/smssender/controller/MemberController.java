@@ -1,6 +1,7 @@
 package com.example.smssender.controller;
 
 import com.example.smssender.payload.PhoneNumberRequest;
+import com.example.smssender.payload.SignupRequest;
 import com.example.smssender.payload.SmsVerifiedRequest;
 import com.example.smssender.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,11 @@ public class MemberController {
     @PostMapping("/verify")
     public void verifyAccount(@RequestBody SmsVerifiedRequest request) {
         memberService.verifyAccount(request);
+    }
+
+    @PostMapping("/signup")
+    public void signup(@RequestBody SignupRequest request) {
+        memberService.signup(request);
     }
 
 }
