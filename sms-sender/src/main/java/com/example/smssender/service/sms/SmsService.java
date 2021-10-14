@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +35,7 @@ public class SmsService {
     public void sendCode(String toNumber) {
         certificationRepository.findByPhoneNumber(toNumber)
                 .map(certification -> certificationRepository.save(certification.updateCode(sendMessage(toNumber))))
-                .orElse(
-                        certificationRepository.save(Certification.builder()
+                .orElseGet(() -> certificationRepository.save(Certification.builder()
                                 .phoneNumber(toNumber)
                                 .code(sendMessage(toNumber))
                                 .codeExp(codeExp)
