@@ -22,12 +22,16 @@ public class Member {
     private String phoneNumber;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
 
     @Builder
-    public Member(String name, String phoneNumber, String password) {
+    public Member(String name, String phoneNumber, String username, String password) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.username = username;
         this.password = password;
     }
 
