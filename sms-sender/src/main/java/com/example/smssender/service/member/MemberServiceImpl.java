@@ -32,13 +32,9 @@ public class MemberServiceImpl implements MemberService {
         Certification certification = certificationRepository.findByPhoneNumber(request.getPhoneNumber())
                 .orElseThrow();
 
-        System.out.println(certification.getCertified());
-
         if(request.getCode().equals(certification.getCode())) {
             certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
         } else throw new IllegalArgumentException();
-
-        System.out.println(certification.getCertified());
 
     }
 

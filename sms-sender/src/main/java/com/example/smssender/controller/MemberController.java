@@ -6,6 +6,7 @@ import com.example.smssender.payload.SmsVerifiedRequest;
 import com.example.smssender.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,17 +15,17 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/code")
-    public void sendCode(@RequestBody PhoneNumberRequest request) {
+    public void sendCode(@Valid @RequestBody PhoneNumberRequest request) {
         memberService.sendCode(request);
     }
 
     @PostMapping("/verify")
-    public void verifyAccount(@RequestBody SmsVerifiedRequest request) {
+    public void verifyAccount(@Valid @RequestBody SmsVerifiedRequest request) {
         memberService.verifyAccount(request);
     }
 
     @PostMapping("/signup")
-    public void signup(@RequestBody SignupRequest request) {
+    public void signup(@Valid @RequestBody SignupRequest request) {
         memberService.signup(request);
     }
 

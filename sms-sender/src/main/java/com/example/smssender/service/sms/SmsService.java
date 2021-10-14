@@ -30,7 +30,6 @@ public class SmsService {
 
     private final CertificationRepository certificationRepository;
 
-
     @Transactional
     public void sendCode(String toNumber) {
         certificationRepository.findByPhoneNumber(toNumber)
@@ -50,17 +49,12 @@ public class SmsService {
         Message coolsms = new Message(apiKey, apiSecret);
         String randomNumber = getRandomNumber();
 
-        System.out.println(randomNumber);
-        System.out.println(toNumber);
-
         HashMap<String, String> params = new HashMap<>();
         params.put("to", toNumber);
         params.put("from", fromNumber);
         params.put("type", "SMS");
         params.put("text", "[TEST] 인증번호 " + randomNumber + "를 입력하세요.");
         params.put("app_version", "test app 1.0");
-
-        System.out.println(params);
 
         try {
             coolsms.send(params);
