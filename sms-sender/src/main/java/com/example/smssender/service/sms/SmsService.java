@@ -6,11 +6,9 @@ import com.example.smssender.entity.certification.Certified;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashMap;
 import java.util.Random;
 
@@ -32,26 +30,19 @@ public class SmsService {
 
     private final CertificationRepository certificationRepository;
 
-    @Transactional
-    public void sendCode(String toNumber) {
-        certificationRepository.save(Certification.builder()
-                .phoneNumber(toNumber)
-                .code(sendMessage(toNumber))
-                .codeExp(codeExp)
-                .certified(Certified.NOT_CERTIFIED)
-                .build());
-    }
 
     @Transactional
-    public void resendCode(String toNumber) {
+    public void sendCode(String toNumber) {
         certificationRepository.findByPhoneNumber(toNumber)
-                .map(certification -> certification.updateCode(sendMessage(toNumber)))
-                .orElse(Certification.builder()
-                        .phoneNumber(toNumber)
-                        .code(sendMessage(toNumber))
-                        .codeExp(codeExp)
-                        .certified(Certified.NOT_CERTIFIED)
-                        .build());
+                .map(certification -> certificationRepository.save(certification.updateCode(sendMessage(toNumber))))
+                .orElse(
+                        certificationRepository.save(Certification.builder()
+                                .phoneNumber(toNumber)
+                                .code(sendMessage(toNumber))
+                                .codeExp(codeExp)
+                                .certified(Certified.NOT_CERTIFIED)
+                                .build())
+                );
     }
 
     public String sendMessage(String toNumber) {
