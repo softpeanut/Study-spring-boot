@@ -6,8 +6,11 @@ import com.example.smssender.entity.certification.Certified;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -29,6 +32,7 @@ public class SmsService {
 
     private final CertificationRepository certificationRepository;
 
+    @Transactional
     public void sendCode(String toNumber) {
         certificationRepository.save(Certification.builder()
                 .phoneNumber(toNumber)
@@ -38,6 +42,7 @@ public class SmsService {
                 .build());
     }
 
+    @Transactional
     public void resendCode(String toNumber) {
         certificationRepository.findByPhoneNumber(toNumber)
                 .map(certification -> certification.updateCode(sendMessage(toNumber)))
@@ -54,12 +59,17 @@ public class SmsService {
         Message coolsms = new Message(apiKey, apiSecret);
         String randomNumber = getRandomNumber();
 
+        System.out.println(randomNumber);
+        System.out.println(toNumber);
+
         HashMap<String, String> params = new HashMap<>();
         params.put("to", toNumber);
         params.put("from", fromNumber);
         params.put("type", "SMS");
-        params.put("text", "[TEST] 인증번호 "+randomNumber+" 를 입력하세요.");
+        params.put("text", "[TEST] 인증번호 " + randomNumber + "를 입력하세요.");
         params.put("app_version", "test app 1.0");
+
+        System.out.println(params);
 
         try {
             coolsms.send(params);
@@ -73,7 +83,7 @@ public class SmsService {
 
     public String getRandomNumber() {
         Random random = new Random();
-        return random.toString();
+        return Integer.toString(random.nextInt(99999) + 111111);
     }
 
 }
