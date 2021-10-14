@@ -20,5 +20,11 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 
+coolsms:
+  api:
+    key: ${KEY}
+    secret: ${SECRET}
+  phone-number: ${NUM}
+
 code:
   exp: ${EXP}
