@@ -7,11 +7,11 @@ import com.example.smssender.exception.CoolsmsConnectFailedException;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +67,7 @@ public class SmsService {
     }
 
     public String getRandomNumber() {
-        Random random = new Random();
-        return Integer.toString(random.nextInt(99999) + 111111);
+        return RandomStringUtils.randomNumeric(6);
     }
 
 }
