@@ -67,7 +67,7 @@ public class SmsService {
     }
 
     public String getRandomNumber() {
-        return RandomStringUtils.randomNumeric(6);
+        return RandomStringUtils.randomAlphanumeric(6);
     }
 
 }
