@@ -72,12 +72,12 @@ public class SmsService {
 
     public String getCode(String key) {
         StringBuffer code = new StringBuffer();
-        String code2 = key.substring(0, 3);
-        String code3 = key.substring(3);
+        String alpha = key.substring(0, 3);
+        String num = key.substring(3);
 
         for (int i = 0; i < 3; i++) {
-            code.append(code2.substring(i, i + 1));
-            code.append(code3.substring(i, i + 1));
+            code.append(alpha.substring(i, i + 1));
+            code.append(num.substring(i, i + 1));
         }
 
         return code.toString();
