@@ -5,6 +5,7 @@ import com.example.mailsender.entity.certification.CertificationRepository;
 import com.example.mailsender.entity.certification.Certified;
 import com.example.mailsender.exception.SendMessageFailedException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -57,8 +57,7 @@ public class MailService {
     }
 
     public String createKey() {
-        Random rnd = new Random();
-        return Integer.toString(rnd.nextInt(99999) + 111111);
+        return RandomStringUtils.randomNumeric(6);
     }
 
     public String getCode(String key) {

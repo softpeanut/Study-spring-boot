@@ -31,6 +31,8 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.5.3'
 
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
