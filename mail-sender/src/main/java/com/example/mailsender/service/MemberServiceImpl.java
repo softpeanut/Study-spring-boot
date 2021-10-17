@@ -29,11 +29,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void resendEmail(EmailRequest request) {
-        mailService.resendEmail(request.getEmail());
-    }
-
-    @Override
     @Transactional
     public void verifyAccount(EmailVerifiedRequest request) {
         Certification certification = certificationRepository.findByEmail(request.getEmail())

@@ -6,7 +6,6 @@ import com.example.mailsender.payload.SignupRequest;
 
 public interface MemberService {
     void sendEmail(EmailRequest request);
-    void resendEmail(EmailRequest request);
     void verifyAccount(EmailVerifiedRequest request);
     void signup(SignupRequest request);
 }

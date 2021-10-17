@@ -45,19 +45,9 @@ public class MailService {
 
     @Transactional
     public void sendEmail(String email) {
-        certificationRepository.save(Certification.builder()
-                .code(sendCode(email))
-                .email(email)
-                .codeExp(CODE_EXP)
-                .certified(Certified.NOT_CERTIFIED)
-                .build());
-    }
-
-    @Transactional
-    public void resendEmail(String email) {
         certificationRepository.findByEmail(email)
                 .map(certification -> certificationRepository.save(certification.updateCode(sendCode(email))))
-                .orElse(certificationRepository.save(Certification.builder()
+                .orElseGet(() -> certificationRepository.save(Certification.builder()
                         .code(sendCode(email))
                         .email(email)
                         .codeExp(CODE_EXP)
