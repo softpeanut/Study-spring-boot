@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RestController
 @RequestMapping("/chat")
 @RequiredArgsConstructor
-public class ChatRoomController {
+public class ChatController {
 
     private final ChatRoomRepository repository;
 
