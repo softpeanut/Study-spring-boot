@@ -31,13 +31,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void verifyAccount(EmailVerifiedRequest request) {
-        Certification certification = certificationRepository.findByEmail(request.getEmail())
-                .orElseThrow(CodeAlreadyExpiredException::new);
-
-        if(request.getCode().equals(certification.getCode())) {
-               certificationRepository.save(certification.updateCertified(Certified.CERTIFIED));
-        } else throw new CodeNotCorrectException();
-
+        certificationRepository.findByEmail(request.getEmail())
+                .filter(s -> request.getCode().equals(s.getCode()))
+                .map(certification -> certification.updateCertified(Certified.CERTIFIED))
+                .orElseThrow(CodeNotCorrectException::new);
     }
 
     @Override
