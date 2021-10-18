@@ -1,4 +1,4 @@
-package com.example.mailsender.service;
+package com.example.mailsender.service.member;
 
 import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
@@ -9,6 +9,7 @@ import com.example.mailsender.exception.*;
 import com.example.mailsender.payload.EmailRequest;
 import com.example.mailsender.payload.EmailVerifiedRequest;
 import com.example.mailsender.payload.SignupRequest;
+import com.example.mailsender.service.mail.MailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final MailService mailService;
+    private final MailServiceImpl mailServiceImpl;
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final CertificationRepository certificationRepository;
@@ -28,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         if(memberRepository.findByEmail(request.getEmail()).isPresent())
             throw new MemberEmailAlreadyExistsException();
 
-        mailService.sendEmail(request.getEmail());
+        mailServiceImpl.sendEmail(request.getEmail());
     }
 
     @Override

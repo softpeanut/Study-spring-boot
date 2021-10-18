@@ -3,7 +3,7 @@ package com.example.mailsender.controller;
 import com.example.mailsender.payload.EmailRequest;
 import com.example.mailsender.payload.EmailVerifiedRequest;
 import com.example.mailsender.payload.SignupRequest;
-import com.example.mailsender.service.MemberService;
+import com.example.mailsender.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;

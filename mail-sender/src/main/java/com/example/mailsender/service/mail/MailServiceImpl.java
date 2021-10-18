@@ -1,4 +1,4 @@
-package com.example.mailsender.service;
+package com.example.mailsender.service.mail;
 
 import com.example.mailsender.entity.certification.Certification;
 import com.example.mailsender.entity.certification.CertificationRepository;
@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 @RequiredArgsConstructor
-public class MailService {
+public class MailServiceImpl implements MailService {
 
     @Value("${code.exp}")
     private Integer CODE_EXP;
@@ -43,6 +43,7 @@ public class MailService {
 
     }
 
+    @Override
     @Transactional
     public void sendEmail(String email) {
         certificationRepository.findByEmail(email)

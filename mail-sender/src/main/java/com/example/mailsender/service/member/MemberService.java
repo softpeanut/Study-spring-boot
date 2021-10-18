@@ -1,4 +1,4 @@
-package com.example.mailsender.service;
+package com.example.mailsender.service.member;
 
 import com.example.mailsender.payload.EmailRequest;
 import com.example.mailsender.payload.EmailVerifiedRequest;
