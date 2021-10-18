@@ -9,7 +9,7 @@ import com.example.mailsender.exception.*;
 import com.example.mailsender.payload.EmailRequest;
 import com.example.mailsender.payload.EmailVerifiedRequest;
 import com.example.mailsender.payload.SignupRequest;
-import com.example.mailsender.service.mail.MailServiceImpl;
+import com.example.mailsender.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final MailServiceImpl mailServiceImpl;
+    private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final CertificationRepository certificationRepository;
@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         if(memberRepository.findByEmail(request.getEmail()).isPresent())
             throw new MemberEmailAlreadyExistsException();
 
-        mailServiceImpl.sendEmail(request.getEmail());
+        mailService.sendEmail(request.getEmail());
     }
 
     @Override
