@@ -25,6 +25,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void sendEmail(EmailRequest request) {
+        if(memberRepository.findByEmail(request.getEmail()).isPresent())
+            throw new MemberEmailAlreadyExistsException();
+
         mailService.sendEmail(request.getEmail());
     }
 
@@ -33,20 +36,18 @@ public class MemberServiceImpl implements MemberService {
     public void verifyAccount(EmailVerifiedRequest request) {
         certificationRepository.findByEmail(request.getEmail())
                 .filter(s -> request.getCode().equals(s.getCode()))
-                .map(certification -> certification.updateCertified(Certified.CERTIFIED))
+                .map(certification -> certificationRepository.save(certification.updateCertified(Certified.CERTIFIED)))
                 .orElseThrow(CodeNotCorrectException::new);
     }
 
     @Override
     @Transactional
     public void signup(SignupRequest request) {
-        if(memberRepository.findByEmail(request.getEmail()).isPresent())
-            throw new MemberEmailAlreadyExistsException();
-        else if(memberRepository.findByName(request.getName()).isPresent())
+        if(memberRepository.findByName(request.getName()).isPresent())
             throw new MemberNameAlreadyExistsException();
 
         Certification certification = certificationRepository.findByEmail(request.getEmail())
-                .orElseThrow(EmailNotFoundException::new);
+                .orElseThrow(CodeAlreadyExpiredException::new);
 
         if(certification.getCertified() == (Certified.CERTIFIED)) {
             memberRepository.save(Member.builder()
