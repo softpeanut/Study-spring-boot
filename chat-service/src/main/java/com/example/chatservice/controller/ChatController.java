@@ -16,7 +16,7 @@ public class ChatController {
 
     private final ChatRoomRepository repository;
 
-    @GetMapping(value = "/rooms")
+    @GetMapping("/rooms")
     public ModelAndView rooms(){
 
         log.info("# All Chat Rooms");
@@ -27,12 +27,12 @@ public class ChatController {
         return mv;
     }
 
-    @PostMapping(value = "/room")
-    public String create(@RequestParam String name, RedirectAttributes rttr){
+    @PostMapping("/room")
+    public void create(@RequestParam String name, RedirectAttributes rttr){
 
         log.info("# Create Chat Room , name: " + name);
+
         rttr.addFlashAttribute("roomName", repository.createChatRoomDto(name));
-        return "redirect:/chat/rooms";
     }
 
     @GetMapping("/room")
