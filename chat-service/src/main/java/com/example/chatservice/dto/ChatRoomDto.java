@@ -1,13 +1,16 @@
 package com.example.chatservice.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.springframework.web.socket.WebSocketSession;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatRoomDto {
     private String roomId;
     private String name;
