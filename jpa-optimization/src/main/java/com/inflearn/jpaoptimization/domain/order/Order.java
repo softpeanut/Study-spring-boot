@@ -1,5 +1,7 @@
-package com.inflearn.jpaoptimization.domain;
+package com.inflearn.jpaoptimization.domain.order;
 
+import com.inflearn.jpaoptimization.domain.delivery.Delivery;
+import com.inflearn.jpaoptimization.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

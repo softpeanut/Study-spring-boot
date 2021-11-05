@@ -1,6 +1,8 @@
-package com.inflearn.jpaoptimization.domain;
+package com.inflearn.jpaoptimization.domain.delivery;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.inflearn.jpaoptimization.domain.Address;
+import com.inflearn.jpaoptimization.domain.order.Order;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
