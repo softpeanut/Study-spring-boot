@@ -34,7 +34,7 @@ public class OrderSimpleApiController {
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAll();
-        for (Order order : all) {
+        for (Order order : all) { // Lazy 강제 초기화
             order.getMember().getName();
             order.getDelivery().getAddress();
         }
