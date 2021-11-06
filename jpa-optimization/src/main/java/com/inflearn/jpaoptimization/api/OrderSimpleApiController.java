@@ -67,7 +67,8 @@ public class OrderSimpleApiController {
 
     /**
      * V4.DTO로 조회 (fetch join 사용 X)
-     *
+     * - 쿼리 1번 호출
+     * - select 절에서 원하는 데이터만 선택해서 조회
      */
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> ordersV4() {
