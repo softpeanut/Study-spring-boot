@@ -64,4 +64,15 @@ public class OrderApiController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * V3.엔티티를 조회해서 DTO로 변환 (fetch join 사용 O)
+     * - fetch join으로 쿼리 1번 호출
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        return orderRepository.findAllWithItem().stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+    }
+
 }
