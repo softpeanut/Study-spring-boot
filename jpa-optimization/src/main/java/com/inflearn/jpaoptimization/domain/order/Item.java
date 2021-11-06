@@ -1,4 +1,4 @@
-package com.inflearn.jpaoptimization.domain;
+package com.inflearn.jpaoptimization.domain.order;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,7 +1,6 @@
 package com.inflearn.jpaoptimization.domain.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.inflearn.jpaoptimization.domain.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

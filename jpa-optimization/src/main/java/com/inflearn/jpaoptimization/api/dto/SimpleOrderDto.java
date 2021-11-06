@@ -1,6 +1,6 @@
 package com.inflearn.jpaoptimization.api.dto;
 
-import com.inflearn.jpaoptimization.domain.Address;
+import com.inflearn.jpaoptimization.domain.delivery.Address;
 import com.inflearn.jpaoptimization.domain.order.Order;
 import com.inflearn.jpaoptimization.domain.order.OrderStatus;
 import lombok.Data;
