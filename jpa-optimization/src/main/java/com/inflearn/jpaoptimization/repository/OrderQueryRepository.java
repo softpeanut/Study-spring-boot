@@ -1,5 +1,6 @@
 package com.inflearn.jpaoptimization.repository;
 
+import com.inflearn.jpaoptimization.api.dto.OrderFlatDto;
 import com.inflearn.jpaoptimization.api.dto.OrderItemQueryDto;
 import com.inflearn.jpaoptimization.api.dto.OrderQueryDto;
 import lombok.RequiredArgsConstructor;
@@ -94,6 +95,17 @@ public class OrderQueryRepository {
         return result.stream()
                 .map(o -> o.getOrderId())
                 .collect(Collectors.toList());
+    }
+
+    public List<OrderFlatDto> findAllByDto_flat() {
+        return em.createQuery(
+                "select new com.inflearn.jpaoptimization.api.dto.OrderFlatDto(o.id, m.name, o.orderDate, d.address, o.status, i.name, oi.orderPrice, oi.count)" +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d" +
+                        " join o.orderItems oi" +
+                        " join oi.item i", OrderFlatDto.class)
+                .getResultList();
     }
 
 }
