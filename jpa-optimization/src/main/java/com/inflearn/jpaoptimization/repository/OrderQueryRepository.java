@@ -90,4 +90,10 @@ public class OrderQueryRepository {
                 .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
     }
 
+    private List<Long> toOrderIds(List<OrderQueryDto> result) {
+        return result.stream()
+                .map(o -> o.getOrderId())
+                .collect(Collectors.toList());
+    }
+
 }
