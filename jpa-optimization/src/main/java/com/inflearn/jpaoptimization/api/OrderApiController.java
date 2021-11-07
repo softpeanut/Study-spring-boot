@@ -1,7 +1,6 @@
 package com.inflearn.jpaoptimization.api;
 
 import com.inflearn.jpaoptimization.api.dto.OrderDto;
-import com.inflearn.jpaoptimization.api.dto.OrderFlatDto;
 import com.inflearn.jpaoptimization.api.dto.OrderItemQueryDto;
 import com.inflearn.jpaoptimization.api.dto.OrderQueryDto;
 import com.inflearn.jpaoptimization.domain.order.Order;
@@ -97,16 +96,33 @@ public class OrderApiController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * V4.DTO로 직접 조회
+     * - ToOne 관계만 우선 조회
+     * - ToMany 관계는 루프를 돌며 추가
+     * - 단건 조회에서 많이 사용됨
+     */
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDto> ordersV4() {
         return orderQueryRepository.findOrderQueryDtos();
     }
 
+    /**
+     * V5.컬렉션 조회 최적화
+     * - ToOne 관계 한 번에 조회
+     * - ToMany 관계 메모리에 미리 조회
+     * - 데이터를 한꺼번에 처리할 때 많이 사용됨
+     */
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> ordersV5() {
         return orderQueryRepository.findAllByDto_optimization();
     }
 
+    /**
+     * V6.플랫 데이터 최적화
+     * - 쿼리 1번
+     * - 애플리케이션의 부담이 큼
+     */
     @GetMapping("/api/v6/orders")
     public List<OrderQueryDto> ordersV6() {
         return orderQueryRepository.findAllByDto_flat().stream()
