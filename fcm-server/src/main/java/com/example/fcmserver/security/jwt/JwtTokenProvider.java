@@ -35,11 +35,11 @@ public class JwtTokenProvider {
         this.secretKey =  Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateAccessToken(String email) {
+    public String generateAccessToken(String username) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setHeaderParam("typ", "JWT")
-                .setSubject(email)
+                .setSubject(username)
                 .claim("type", "access")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + accessExp * 1000))
