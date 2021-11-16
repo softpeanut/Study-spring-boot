@@ -1,6 +1,6 @@
 package com.example.fcmserver.controller;
 
-import com.example.fcmserver.dto.AuthRequest;
+import com.example.fcmserver.dto.UserRequest;
 import com.example.fcmserver.dto.TokenResponse;
 import com.example.fcmserver.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public String signup(@RequestBody AuthRequest request) {
+    public String signup(@RequestBody UserRequest request) {
         return userService.signup(request);
     }
 
     @PostMapping("/auth")
-    public TokenResponse login(@RequestBody AuthRequest request) {
+    public TokenResponse login(@RequestBody UserRequest request) {
         return userService.login(request);
     }
 
