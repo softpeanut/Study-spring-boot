@@ -1,34 +1,34 @@
-<ehcache>
-    <defaultCache
-            maxElementsInMemory="10000"
-            eternal="false"
-            timeToIdleSeconds="1200"
-            timeToLiveSeconds="1200"
-            diskExpiryThreadIntervalSeconds="1200"
-            memoryStoreEvictionPolicy="LRU"
-    />
-</ehcache>
+<!--<ehcache>-->
+<!--    <defaultCache-->
+<!--            maxElementsInMemory="10000"-->
+<!--            eternal="false"-->
+<!--            timeToIdleSeconds="1200"-->
+<!--            timeToLiveSeconds="1200"-->
+<!--            diskExpiryThreadIntervalSeconds="1200"-->
+<!--            memoryStoreEvictionPolicy="LRU"-->
+<!--    />-->
+<!--</ehcache>-->
 
 <!--jcache 적용-->
-<!--<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
-<!--        xmlns='http://www.ehcache.org/v3'-->
-<!--        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"-->
-<!--        xsi:schemaLocation="-->
-<!--        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd-->
-<!--        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">-->
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="
+        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd
+        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
 
-<!--    <service>-->
-<!--        <jsr107:defaults enable-management="true" enable-statistics="true"/>-->
-<!--    </service>-->
+    <service>
+        <jsr107:defaults enable-management="true" enable-statistics="true"/>
+    </service>
 
-<!--    <cache-template name="myDefaultTemplate">-->
-<!--        <expiry>-->
-<!--            <ttl unit="seconds">600</ttl>-->
-<!--        </expiry>-->
-<!--        <heap>20</heap>-->
-<!--    </cache-template>-->
-<!--    -->
-<!--    <cache alias="getRecordCompleteCache" uses-template="myDefaultTemplate">-->
-<!--    </cache>-->
+    <cache-template name="default">
+        <expiry>
+            <ttl unit="minutes">60</ttl>
+        </expiry>
+        <heap>100</heap>
+    </cache-template>
 
-<!--</config>-->
+    <cache alias="default" uses-template="default">
+    </cache>
+
+</config>

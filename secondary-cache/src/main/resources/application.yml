@@ -3,7 +3,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
     properties:
       hibernate:
@@ -13,15 +13,16 @@ spring:
           use_second_level_cache: true # 2차 캐시 활성화 - 엔티티 캐시 & 컬렉션 캐시
           use_query_cache: true # 쿼리 캐시 활성화
           region:
-            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory # 2차 캐시 처리할 클래스 지정 / jcache 사용시 -> jcache
+            factory_class: jcache
+#            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory # 2차 캐시 처리할 클래스 지정 / jcache 사용시 -> jcache
 
       javax:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE # @Cacheable을 붙힌 엔티티에만 적용
-#  cache:
-#    jcache:
-#      config: classpath:ehcache.xml # jcache 적용
+  cache:
+    jcache:
+      config: classpath:ehcache.xml # jcache 적용
   datasource:
     url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:secondary_cache}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
     username: ${DB_USER:root}
