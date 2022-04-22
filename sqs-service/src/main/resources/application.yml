@@ -1,0 +1,13 @@
+cloud:
+  aws:
+    credentials:
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
+    sqs:
+      queue:
+        name: ${QUEUE_NAME}
+        url: ${QUEUE_URL}
