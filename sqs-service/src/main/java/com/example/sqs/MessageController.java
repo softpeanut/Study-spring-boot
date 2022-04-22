@@ -16,7 +16,7 @@ public class MessageController {
     @PostMapping("/message")
     public void send(@RequestBody String message) {
         awsSQSSender.sendMessage(message);
-        log.info("send to sqs : " + message + ", " + System.currentTimeMillis());
+        log.info("send to sqs : " + message);
     }
 
 }
