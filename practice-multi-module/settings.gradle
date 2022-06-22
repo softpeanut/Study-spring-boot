@@ -1,0 +1,4 @@
+rootProject.name = 'practice-multi-module'
+
+include 'core', 'api-server', 'batch-server'
+
