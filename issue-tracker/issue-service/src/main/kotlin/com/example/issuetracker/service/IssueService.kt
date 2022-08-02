@@ -2,6 +2,7 @@ package com.example.issuetracker.service
 
 import com.example.issuetracker.domain.Issue
 import com.example.issuetracker.domain.IssueRepository
+import com.example.issuetracker.domain.enums.IssueStatus
 import com.example.issuetracker.model.IssueRequest
 import com.example.issuetracker.model.IssueResponse
 import org.springframework.stereotype.Service
@@ -25,4 +26,10 @@ class IssueService(
 
         return IssueResponse(issueRepository.save(issue))
     }
+
+    @Transactional(readOnly = true)
+    fun getAll(status: IssueStatus) =
+        issueRepository.findAllByStatusOrderByCreatedAtDesc(status)?.map { IssueResponse(it) }
+
+
 }
