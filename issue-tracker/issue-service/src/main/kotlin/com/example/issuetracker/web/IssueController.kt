@@ -5,6 +5,7 @@ import com.example.issuetracker.domain.enums.IssueStatus
 import com.example.issuetracker.model.IssueRequest
 import com.example.issuetracker.service.IssueService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -28,4 +29,10 @@ class IssueController(
         authUser: AuthUser,
         @RequestParam(required = false, defaultValue = "TODO") status: IssueStatus
     ) = issueService.getAll(status)
+
+    @GetMapping("/{issueId}")
+    fun get(
+        authUser: AuthUser,
+        @PathVariable("issueId") issueId: Long
+    ) = issueService.get(issueId)
 }

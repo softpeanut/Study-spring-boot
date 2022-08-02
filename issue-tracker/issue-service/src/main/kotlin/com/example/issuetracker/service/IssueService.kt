@@ -3,8 +3,10 @@ package com.example.issuetracker.service
 import com.example.issuetracker.domain.Issue
 import com.example.issuetracker.domain.IssueRepository
 import com.example.issuetracker.domain.enums.IssueStatus
+import com.example.issuetracker.exception.NotFoundException
 import com.example.issuetracker.model.IssueRequest
 import com.example.issuetracker.model.IssueResponse
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -31,5 +33,9 @@ class IssueService(
     fun getAll(status: IssueStatus) =
         issueRepository.findAllByStatusOrderByCreatedAtDesc(status)?.map { IssueResponse(it) }
 
-
+    @Transactional(readOnly = true)
+    fun get(issueId: Long): IssueResponse {
+        val issue = issueRepository.findByIdOrNull(issueId) ?: throw NotFoundException("이슈가 존재하지 않습니다.")
+        return IssueResponse(issue)
+    }
 }
