@@ -1,5 +1,6 @@
 package com.example.issuetracker.model
 
+import com.example.issuetracker.domain.Comment
 import com.example.issuetracker.domain.Issue
 import com.example.issuetracker.domain.enums.IssuePriority
 import com.example.issuetracker.domain.enums.IssueStatus
@@ -17,6 +18,7 @@ data class IssueRequest(
 
 data class IssueResponse(
     val id: Long,
+    val comments: List<CommentResponse> = emptyList(),
     val summary: String,
     val description: String,
     val userId: Long,
@@ -35,6 +37,7 @@ data class IssueResponse(
             with(issue) {
                 IssueResponse(
                     id = id!!,
+                    comments = comments.sortedByDescending(Comment::id).map(Comment::toResponse),
                     summary = summary,
                     description = description,
                     userId = userId,
