@@ -53,4 +53,9 @@ class IssueService(
             IssueResponse(issueRepository.save(this))
         }
     }
+
+    @Transactional
+    fun delete(issueId: Long) {
+        issueRepository.deleteById(issueId)
+    }
 }
