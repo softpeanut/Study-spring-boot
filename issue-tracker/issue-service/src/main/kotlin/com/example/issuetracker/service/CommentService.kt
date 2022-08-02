@@ -3,6 +3,7 @@ package com.example.issuetracker.service
 import com.example.issuetracker.domain.Comment
 import com.example.issuetracker.domain.CommentRepository
 import com.example.issuetracker.domain.IssueRepository
+import com.example.issuetracker.exception.NotFoundException
 import com.example.issuetracker.model.CommentRequest
 import com.example.issuetracker.model.CommentResponse
 import com.example.issuetracker.model.toResponse
@@ -18,7 +19,7 @@ class CommentService(
 
     @Transactional
     fun create(issueId: Long, userId: Long, username: String, request: CommentRequest): CommentResponse {
-        val issue = issueRepository.findByIdOrNull(issueId) ?: throw IllegalArgumentException("이슈가 존재하지 않습니다.")
+        val issue = issueRepository.findByIdOrNull(issueId) ?: throw NotFoundException("이슈가 존재하지 않습니다.")
 
         val comment = Comment(
             issue = issue,
@@ -37,4 +38,13 @@ class CommentService(
             body = request.body
             commentRepository.save(this).toResponse()
         }
+
+    @Transactional
+    fun delete(commentId: Long, userId: Long) {
+        commentRepository.findByIdAndUserId(commentId, userId)?.let { comment ->
+            val issue =
+                issueRepository.findByIdOrNull(comment.issue.id) ?: throw NotFoundException("이슈가 존재하지 않습니다.")
+            issue.comments.remove(comment)
+        }
+    }
 }
