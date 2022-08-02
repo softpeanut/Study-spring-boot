@@ -1,0 +1,27 @@
+### POST Todo 생성
+POST localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "숙제",
+  "description": "수학 숙제를 해야한다"
+}
+
+
+### GET Todo List 조회
+GET localhost:8080/api/todos
+
+
+### PUT Todo 수정
+PUT localhost:8080/api/todos/1
+Content-Type: application/json
+
+{
+  "title": "숙제",
+  "description": "숙제 끝났다!!",
+  "done": true
+}
+
+
+### DELETE Todo 삭제
+DELETE localhost:8080/api/todos/2
