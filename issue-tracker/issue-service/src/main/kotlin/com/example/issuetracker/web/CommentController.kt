@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/issues")
+@RequestMapping("/api/v1/issues/comments")
 class CommentController(
     private val commentService: CommentService
 ) {
-    @PostMapping("/{issueId}/comments")
+    @PostMapping("/{issueId}")
     fun create(
         authUser: AuthUser,
         @PathVariable("issueId") issueId: Long,
